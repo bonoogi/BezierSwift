@@ -47,4 +47,42 @@ extension SemanticColorProtocol {
     @unknown default: return self.light.color
     }
   }
+  
+  public func getPressedColor(_ component: BezierComponentable) -> UIColor {
+    let originalColor: ColorComponentsWithAlpha
+    let colorTheme: BezierColorTheme
+    switch (component.componentTheme, component.colorTheme) {
+    case (.normal, .light), (.inverted, .dark):
+      originalColor = self.light
+      colorTheme = .light
+      
+    case (.normal, .dark), (.inverted, .light):
+      originalColor = self.dark
+      colorTheme = .dark
+    }
+    
+    let color = ColorUtils.getPressedColor(originalColor: originalColor, colorTheme: colorTheme)
+    return color.uiColor
+  }
+  
+  public func getPressedColor(_ themeable: Themeable, isInverted: Bool = false) -> Color {
+    let originalColor: ColorComponentsWithAlpha
+    let colorTheme: BezierColorTheme
+    switch (themeable.colorScheme, isInverted) {
+    case (.light, false), (.dark, true):
+      originalColor = self.light
+      colorTheme = .light
+      
+    case (.dark, false), (.light, true):
+      originalColor = self.dark
+      colorTheme = .dark
+
+    @unknown default:
+      originalColor = self.light
+      colorTheme = .light
+    }
+    
+    let color = ColorUtils.getPressedColor(originalColor: originalColor, colorTheme: colorTheme)
+    return color.color
+  }
 }
