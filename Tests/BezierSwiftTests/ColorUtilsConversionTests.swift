@@ -2,7 +2,7 @@
 //  ColorUtilsConversionTests.swift
 //  BezierSwiftTests
 //
-//  Created by Claude on 12/29/25.
+//  Created by 구본욱 on 12/29/25.
 //
 
 import XCTest
