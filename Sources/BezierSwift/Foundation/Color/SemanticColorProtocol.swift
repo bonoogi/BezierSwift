@@ -16,6 +16,7 @@ public protocol SemanticColorProtocol {
 }
 
 extension SemanticColorProtocol {
+  // MARK: - Palette Methods
   public func palette(_ component: BezierComponentable) -> UIColor {
     UIColor { [weak component] _ in
       let component = component ?? TempBezierComponent()
@@ -38,41 +39,11 @@ extension SemanticColorProtocol {
     }
   }
   
-  public func getPressedColor(_ component: BezierComponentable) -> UIColor {
-    let originalColor: ColorComponentsWithAlpha
-    let colorTheme: BezierColorTheme
-    switch (component.componentTheme, component.colorTheme) {
-    case (.normal, .light), (.inverted, .dark):
-      originalColor = self.light
-      colorTheme = .light
-      
-    case (.normal, .dark), (.inverted, .light):
-      originalColor = self.dark
-      colorTheme = .dark
-    }
-    
-    let color = ColorUtils.getPressedColor(originalColor: originalColor, colorTheme: colorTheme)
-    return color.uiColor
-  }
-  
-  public func getPressedColor(_ themeable: Themeable, isInverted: Bool = false) -> Color {
-    let originalColor: ColorComponentsWithAlpha
-    let colorTheme: BezierColorTheme
-    switch (themeable.colorScheme, isInverted) {
-    case (.light, false), (.dark, true):
-      originalColor = self.light
-      colorTheme = .light
-      
-    case (.dark, false), (.light, true):
-      originalColor = self.dark
-      colorTheme = .dark
-
-    @unknown default:
-      originalColor = self.light
-      colorTheme = .light
-    }
-    
-    let color = ColorUtils.getPressedColor(originalColor: originalColor, colorTheme: colorTheme)
-    return color.color
+  // MARK: - Pressed Color Method
+  public var pressedColor: SemanticColorProtocol {
+    BCCustomSemanticToken(
+      light: ColorUtils.getPressedColor(originalColor: self.light, colorTheme: .light),
+      dark: ColorUtils.getPressedColor(originalColor: self.dark, colorTheme: .dark)
+    )
   }
 }
