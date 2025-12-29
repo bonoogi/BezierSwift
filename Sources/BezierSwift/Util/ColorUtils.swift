@@ -17,34 +17,6 @@ enum ColorUtils {
     originalColor: ColorComponentsWithAlpha,
     colorTheme: BezierColorTheme
   ) -> ColorComponentsWithAlpha {
-    /*
-     - 항상 적용하는 로직
-         - Alpha
-             - 0%일 때 10% 고정 (무채색일때 5% 고정)
-                 - ❗이 경우에는 명도와 채도를 조절하지 않습니다.❗
-             - 20% 이하일 때 1.5배 증가
-             - 20% 초과일 때 그대로
-         - 채도
-             - 90% 이상 혹은 10% 이하일 때는 그대로
-             - 10% ~ 90% 사이에 있을 때는 아래 로직을 따릅니다.
-
-     - 테마 별로 적용하는 로직
-         - LightTheme
-             - Brighter (`lightness 17% 이하`)
-                 1. (명도 + 0.07) * 1.1 (무채색일때 (명도 + 0.1) * 1.1)
-                 2. 채도 + 0.05
-             - Darker (`lightness 17% 초과` or `alpha 20% 이하`)
-                 1. 명도 * 0.93
-                 2. 채도 - 0.03
-         - DarkTheme
-             - Brighter (`lightness 83% 미만`)
-                 1. (명도 + 0.04) * 1.005
-                 2. 채도 + 0.05
-             - Darker (`lightness 83% 이상` or `alpha 20% 이하`)
-                 1. (명도 - 0.2) * 0.98 (무채색일때 (명도 - 0.04) * 0.97))
-                 2. 채도 - 0.03
-     */
-    
     let hsl = Self.rgbToHSL(red: originalColor.red, green: originalColor.green, blue: originalColor.blue)
     let isAchromatic = hsl.saturation == 0
     
