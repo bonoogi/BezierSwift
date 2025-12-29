@@ -7,7 +7,7 @@
 
 import UIKit
 
-public enum BCSemanticToken {
+public enum BCSemanticToken: Equatable {
   // MARK: - Border
   case borderAbsoluteWhite
   case borderDetach
