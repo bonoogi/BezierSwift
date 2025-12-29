@@ -19,10 +19,10 @@ enum ColorUtils {
   ) -> ColorComponentsWithAlpha {
     let hsl = Self.rgbToHSL(red: originalColor.red, green: originalColor.green, blue: originalColor.blue)
     let isAchromatic = hsl.saturation == 0
-    
-    let hue = Double(hsl.hue)
-    var saturation = Double(hsl.saturation) / 100.0
-    var lightness = Double(hsl.lightness) / 100.0
+
+    let hue = hsl.hue
+    var saturation = hsl.saturation
+    var lightness = hsl.lightness
     var alpha = originalColor.alpha
     
     let originalAlpha = originalColor.alpha
@@ -88,20 +88,18 @@ enum ColorUtils {
     let rgb = ColorUtils.hslToRGB(hue: hue, saturation: saturation, lightness: lightness)
     return ColorComponentsWithAlpha(red: rgb.red, green: rgb.green, blue: rgb.blue, alpha: alpha)
   }
-}
 
-extension ColorUtils {
   /// RGB 값을 HSL로 변환합니다.
   /// - Parameters:
   ///   - red: 빨강 (0-255)
   ///   - green: 초록 (0-255)
   ///   - blue: 파랑 (0-255)
-  /// - Returns: (hue: 0-360, saturation: 0-100, lightness: 0-100)
-  private static func rgbToHSL(
+  /// - Returns: (hue: 0-360, saturation: 0-1, lightness: 0-1)
+  static func rgbToHSL(
     red: Double,
     green: Double,
     blue: Double
-  ) -> (hue: Int, saturation: Int, lightness: Int) {
+  ) -> (hue: Double, saturation: Double, lightness: Double) {
     let r = red / 255.0
     let g = green / 255.0
     let b = blue / 255.0
@@ -110,31 +108,28 @@ extension ColorUtils {
     let minVal = min(r, g, b)
     let delta = maxVal - minVal
 
-    // Lightness (0-100)
-    let lightness = Int(round(((maxVal + minVal) / 2.0) * 100.0))
+    // Lightness (0-1)
+    let lightness = (maxVal + minVal) / 2.0
 
-    // Saturation (0-100)
-    var saturation: Int = 0
+    // Saturation (0-1)
+    var saturation: Double = 0
     if delta != 0 {
-      let l = (maxVal + minVal) / 2.0
-      saturation = Int(round((delta / (1.0 - abs(2.0 * l - 1.0))) * 100.0))
+      saturation = delta / (1.0 - abs(2.0 * lightness - 1.0))
     }
 
     // Hue (0-360)
-    var hue: Int = 0
+    var hue: Double = 0
     if delta != 0 {
-      var h: Double = 0
       if maxVal == r {
-        h = 60.0 * (((g - b) / delta).truncatingRemainder(dividingBy: 6.0))
+        hue = 60.0 * (((g - b) / delta).truncatingRemainder(dividingBy: 6.0))
       } else if maxVal == g {
-        h = 60.0 * (((b - r) / delta) + 2.0)
+        hue = 60.0 * (((b - r) / delta) + 2.0)
       } else {
-        h = 60.0 * (((r - g) / delta) + 4.0)
+        hue = 60.0 * (((r - g) / delta) + 4.0)
       }
-      if h < 0 {
-        h += 360.0
+      if hue < 0 {
+        hue += 360.0
       }
-      hue = Int(round(h))
     }
 
     return (hue: hue, saturation: saturation, lightness: lightness)
@@ -146,7 +141,7 @@ extension ColorUtils {
   ///   - saturation: 채도 (0-1)
   ///   - lightness: 명도 (0-1)
   /// - Returns: (red: 0-255, green: 0-255, blue: 0-255)
-  private static func hslToRGB(
+  static func hslToRGB(
     hue: Double,
     saturation : Double,
     lightness: Double
@@ -181,7 +176,9 @@ extension ColorUtils {
     
     return (red: red * 255, green: green * 255, blue: blue * 255)
   }
-  
+}
+
+extension ColorUtils {
   /// HSL→RGB 변환 시 사용되는 보조 함수
   /// - Parameters:
   ///   - minChannelValue: 색상 채널의 최솟값
