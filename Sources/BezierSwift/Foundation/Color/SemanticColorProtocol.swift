@@ -41,7 +41,7 @@ extension SemanticColorProtocol {
   
   // MARK: - Pressed Color Method
   public var pressedColor: SemanticColorProtocol {
-    BCCustomSemanticToken(
+    return BCSemanticToken.custom(
       light: ColorUtils.getPressedColor(originalColor: self.light, colorTheme: .light),
       dark: ColorUtils.getPressedColor(originalColor: self.dark, colorTheme: .dark)
     )

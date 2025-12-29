@@ -221,6 +221,8 @@ public enum BCSemanticToken {
   case textNeutralLighter
   case textSuccess
   case textWarning
+  
+  case custom(light: ColorComponentsWithAlpha, dark: ColorComponentsWithAlpha)
 }
 
 extension BCSemanticToken: SemanticColorProtocol {
@@ -616,6 +618,8 @@ extension BCSemanticToken {
       return (light: BCGlobalToken.green400.value, dark: BCGlobalToken.green300.value)
     case .textWarning:
       return (light: BCGlobalToken.orange400.value, dark: BCGlobalToken.orange300.value)
+    case .custom(let light, let dark):
+      return (light: light, dark: dark)
     }
   }
 }
