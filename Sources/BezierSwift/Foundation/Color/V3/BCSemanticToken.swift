@@ -225,11 +225,24 @@ public enum BCSemanticToken: Equatable {
   case custom(light: ColorComponentsWithAlpha, dark: ColorComponentsWithAlpha)
 }
 
+// MARK: - SemanticColorProtocol
 extension BCSemanticToken: SemanticColorProtocol {
   public var light: ColorComponentsWithAlpha { self.paletteSet.light }
   public var dark: ColorComponentsWithAlpha { self.paletteSet.dark }
+  
 }
 
+// MARK: - Pressed Color Method
+extension BCSemanticToken {
+  public var pressedColor: BCSemanticToken {
+    return .custom(
+      light: ColorUtils.getPressedColor(originalColor: self.light, colorTheme: .light),
+      dark: ColorUtils.getPressedColor(originalColor: self.dark, colorTheme: .dark)
+    )
+  }
+}
+
+// MARK: - Private Methods
 extension BCSemanticToken {
   typealias PaletteSet = (light: ColorComponentsWithAlpha, dark: ColorComponentsWithAlpha)
 

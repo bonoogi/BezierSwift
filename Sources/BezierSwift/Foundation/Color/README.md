@@ -17,14 +17,15 @@ Bezier Color V3는 2단계 위계의 Token으로 나뉘어집니다
 
 ## Pressed Color
 
-Pressed 상태의 색상은 원본 색상을 기반으로 HSL 색상 공간에서 명도/채도/투명도를 조정하여 계산합니다.
+- Pressed 상태의 색상은 원본 색상을 기반으로 HSL 색상 공간에서 명도/채도/투명도를 조정하여 계산합니다
+- BCSemanticToken 타입에서만 사용됩니다
 
 ### 구조
 
 ```
-BCSemanticToken (SemanticColorProtocol)
+BCSemanticToken
     │
-    ├── .pressedColor → SemanticColorProtocol(BCCustomSemanticColor)
+    ├── .pressedColor → BCSemanticToken.custom
             │
             ▼ (internal)
     ColorUtils.getPressedColor(originalColor:colorTheme:)
