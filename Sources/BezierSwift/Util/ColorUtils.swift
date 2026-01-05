@@ -143,7 +143,7 @@ enum ColorUtils {
   /// - Returns: (red: 0-255, green: 0-255, blue: 0-255)
   static func hslToRGB(
     hue: Double,
-    saturation : Double,
+    saturation: Double,
     lightness: Double
   ) -> (red: Double, green: Double, blue: Double) {
     var red: Double, green: Double, blue: Double
