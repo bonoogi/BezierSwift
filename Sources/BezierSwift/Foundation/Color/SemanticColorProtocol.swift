@@ -16,26 +16,17 @@ public protocol SemanticColorProtocol {
 }
 
 extension SemanticColorProtocol {
+  // MARK: - Palette Methods
   public func palette(_ component: BezierComponentable) -> UIColor {
     UIColor { [weak component] _ in
       let component = component ?? TempBezierComponent()
       let colorTheme = component.colorTheme
       let componentTheme = component.componentTheme
-      switch componentTheme {
-      case .normal:
-        switch colorTheme {
-        case .light:
-          return self.light.uiColor
-        case .dark:
-          return self.dark.uiColor
-        }
-      case .inverted:
-        switch colorTheme {
-        case .light:
-          return self.dark.uiColor
-        case .dark:
-          return self.light.uiColor
-        }
+      switch (componentTheme, colorTheme) {
+      case (.normal, .light), (.inverted, .dark):
+        return self.light.uiColor
+      case (.normal, .dark), (.inverted, .light):
+        return self.dark.uiColor
       }
     }
   }

@@ -72,19 +72,19 @@ public enum BCGlobalToken {
   case green400_5
   case green500
   case green600
-  case greyAlpha100_80
-  case greyAlpha100_90
-  case greyAlpha200_80
-  case greyAlpha200_90
-  case greyAlpha50_80
-  case greyAlpha700_80
-  case greyAlpha700_90
-  case greyAlpha800_80
-  case greyAlpha800_90
-  case greyAlpha850_80
-  case greyAlpha850_90
-  case greyAlpha900_0
-  case greyAlpha900_90
+  case grey100_80
+  case grey100_90
+  case grey200_80
+  case grey200_90
+  case grey50_80
+  case grey700_80
+  case grey700_90
+  case grey800_80
+  case grey800_90
+  case grey850_80
+  case grey850_90
+  case grey900_0
+  case grey900_90
   case grey100
   case grey200
   case grey300
@@ -369,31 +369,31 @@ public enum BCGlobalToken {
       return ColorComponentsWithAlpha(red: 0x35, green: 0x87, blue: 0x61, alpha: 1)
     case .green600:
       return ColorComponentsWithAlpha(red: 0x32, green: 0x70, blue: 0x55, alpha: 1)
-    case .greyAlpha100_80:
+    case .grey100_80:
       return ColorComponentsWithAlpha(red: 0xF7, green: 0xF7, blue: 0xF8, alpha: 0.80)
-    case .greyAlpha100_90:
+    case .grey100_90:
       return ColorComponentsWithAlpha(red: 0xF7, green: 0xF7, blue: 0xF8, alpha: 0.90)
-    case .greyAlpha200_80:
+    case .grey200_80:
       return ColorComponentsWithAlpha(red: 0xEF, green: 0xEF, blue: 0xF0, alpha: 0.80)
-    case .greyAlpha200_90:
+    case .grey200_90:
       return ColorComponentsWithAlpha(red: 0xEF, green: 0xEF, blue: 0xF0, alpha: 0.90)
-    case .greyAlpha50_80:
+    case .grey50_80:
       return ColorComponentsWithAlpha(red: 0xFB, green: 0xFB, blue: 0xFB, alpha: 0.80)
-    case .greyAlpha700_80:
-      return ColorComponentsWithAlpha(red: 0x46, green: 0x47, blue: 0x48, alpha: 0.80)
-    case .greyAlpha700_90:
-      return ColorComponentsWithAlpha(red: 0x46, green: 0x47, blue: 0x48, alpha: 0.90)
-    case .greyAlpha800_80:
-      return ColorComponentsWithAlpha(red: 0x31, green: 0x32, blue: 0x34, alpha: 0.80)
-    case .greyAlpha800_90:
-      return ColorComponentsWithAlpha(red: 0x31, green: 0x32, blue: 0x34, alpha: 0.90)
-    case .greyAlpha850_80:
-      return ColorComponentsWithAlpha(red: 0x2A, green: 0x2B, blue: 0x2D, alpha: 0.80)
-    case .greyAlpha850_90:
-      return ColorComponentsWithAlpha(red: 0x2A, green: 0x2B, blue: 0x2D, alpha: 0.90)
-    case .greyAlpha900_0:
+    case .grey700_80:
+      return ColorComponentsWithAlpha(red: 0x45, green: 0x45, blue: 0x49, alpha: 0.80)
+    case .grey700_90:
+      return ColorComponentsWithAlpha(red: 0x45, green: 0x45, blue: 0x49, alpha: 0.90)
+    case .grey800_80:
+      return ColorComponentsWithAlpha(red: 0x30, green: 0x30, blue: 0x35, alpha: 0.80)
+    case .grey800_90:
+      return ColorComponentsWithAlpha(red: 0x30, green: 0x30, blue: 0x35, alpha: 0.90)
+    case .grey850_80:
+      return ColorComponentsWithAlpha(red: 0x2A, green: 0x2A, blue: 0x2D, alpha: 0.80)
+    case .grey850_90:
+      return ColorComponentsWithAlpha(red: 0x2A, green: 0x2A, blue: 0x2D, alpha: 0.90)
+    case .grey900_0:
       return ColorComponentsWithAlpha(red: 0x24, green: 0x24, blue: 0x28, alpha: 0)
-    case .greyAlpha900_90:
+    case .grey900_90:
       return ColorComponentsWithAlpha(red: 0x24, green: 0x24, blue: 0x28, alpha: 0.90)
     case .grey100:
       return ColorComponentsWithAlpha(red: 0xF7, green: 0xF7, blue: 0xF8, alpha: 1)
@@ -408,15 +408,15 @@ public enum BCGlobalToken {
     case .grey500:
       return ColorComponentsWithAlpha(red: 0xA7, green: 0xA7, blue: 0xAA, alpha: 1)
     case .grey600:
-      return ColorComponentsWithAlpha(red: 0x7B, green: 0x7B, blue: 0x7B, alpha: 1)
+      return ColorComponentsWithAlpha(red: 0x79, green: 0x79, blue: 0x7E, alpha: 1)
     case .grey700:
-      return ColorComponentsWithAlpha(red: 0x46, green: 0x47, blue: 0x48, alpha: 1)
+      return ColorComponentsWithAlpha(red: 0x45, green: 0x45, blue: 0x49, alpha: 1)
     case .grey750:
-      return ColorComponentsWithAlpha(red: 0x38, green: 0x39, blue: 0x3B, alpha: 1)
+      return ColorComponentsWithAlpha(red: 0x37, green: 0x37, blue: 0x3C, alpha: 1)
     case .grey800:
-      return ColorComponentsWithAlpha(red: 0x31, green: 0x32, blue: 0x34, alpha: 1)
+      return ColorComponentsWithAlpha(red: 0x30, green: 0x30, blue: 0x35, alpha: 1)
     case .grey850:
-      return ColorComponentsWithAlpha(red: 0x2A, green: 0x2B, blue: 0x2D, alpha: 1)
+      return ColorComponentsWithAlpha(red: 0x2A, green: 0x2A, blue: 0x2D, alpha: 1)
     case .grey900:
       return ColorComponentsWithAlpha(red: 0x24, green: 0x24, blue: 0x28, alpha: 1)
     case .grey950:

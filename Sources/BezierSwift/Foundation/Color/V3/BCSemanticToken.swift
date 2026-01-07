@@ -7,12 +7,14 @@
 
 import UIKit
 
-public enum BCSemanticToken {
+public enum BCSemanticToken: Equatable {
   // MARK: - Border
   case borderAbsoluteWhite
+  case borderDetach
   case borderDetachHigh
   case borderDetachHigher
   case borderDetachHighest
+  case borderDetachLow
   case borderNeutral
   case borderNeutralHeavier
   case borderNeutralHeavy
@@ -142,6 +144,7 @@ public enum BCSemanticToken {
   // MARK: - Gradient
   case gradientAccentGreen
   case gradientAccentGreenHeavy
+  case gradientAccentGreenLight
 
   // MARK: - Icon
   case iconAbsoluteBlack
@@ -194,7 +197,6 @@ public enum BCSemanticToken {
   case surfaceHigher
   case surfaceHighest
   case surfaceLow
-  case surfaceLower
 
   // MARK: - Text
   case textAbsoluteBlack
@@ -219,13 +221,28 @@ public enum BCSemanticToken {
   case textNeutralLighter
   case textSuccess
   case textWarning
+  
+  case custom(light: ColorComponentsWithAlpha, dark: ColorComponentsWithAlpha)
 }
 
+// MARK: - SemanticColorProtocol
 extension BCSemanticToken: SemanticColorProtocol {
   public var light: ColorComponentsWithAlpha { self.paletteSet.light }
   public var dark: ColorComponentsWithAlpha { self.paletteSet.dark }
+  
 }
 
+// MARK: - Pressed Color Method
+extension BCSemanticToken {
+  public var pressedColor: BCSemanticToken {
+    return .custom(
+      light: ColorUtils.getPressedColor(originalColor: self.light, colorTheme: .light),
+      dark: ColorUtils.getPressedColor(originalColor: self.dark, colorTheme: .dark)
+    )
+  }
+}
+
+// MARK: - Private Methods
 extension BCSemanticToken {
   typealias PaletteSet = (light: ColorComponentsWithAlpha, dark: ColorComponentsWithAlpha)
 
@@ -234,12 +251,16 @@ extension BCSemanticToken {
     // MARK: - Border
     case .borderAbsoluteWhite:
       return (light: BCGlobalToken.white100.value, dark: BCGlobalToken.white100.value)
+    case .borderDetach:
+      return (light: BCGlobalToken.white100.value, dark: BCGlobalToken.grey900.value)
     case .borderDetachHigh:
       return (light: BCGlobalToken.white100.value, dark: BCGlobalToken.grey850.value)
     case .borderDetachHigher:
       return (light: BCGlobalToken.white100.value, dark: BCGlobalToken.grey800.value)
     case .borderDetachHighest:
       return (light: BCGlobalToken.white100.value, dark: BCGlobalToken.grey700.value)
+    case .borderDetachLow:
+      return (light: BCGlobalToken.grey50.value, dark: BCGlobalToken.grey950.value)
     case .borderNeutral:
       return (light: BCGlobalToken.black8.value, dark: BCGlobalToken.white12.value)
     case .borderNeutralHeavier:
@@ -464,6 +485,8 @@ extension BCSemanticToken {
       return (light: BCGlobalToken.green400.value, dark: BCGlobalToken.green400.value)
     case .gradientAccentGreenHeavy:
       return (light: BCGlobalToken.green500.value, dark: BCGlobalToken.green300.value)
+    case .gradientAccentGreenLight:
+      return (light: BCGlobalToken.green300.value, dark: BCGlobalToken.green300.value)
 
     // MARK: - Icon
     case .iconAbsoluteBlack:
@@ -513,7 +536,7 @@ extension BCSemanticToken {
     case .stateAction:
       return (light: BCGlobalToken.blue400.value, dark: BCGlobalToken.blue300.value)
     case .stateActionLight:
-      return (light: BCGlobalToken.blue400_30.value, dark: BCGlobalToken.blue300_30.value)
+      return (light: BCGlobalToken.blue400_30.value, dark: BCGlobalToken.blue300_45.value)
     case .stateDefault:
       return (light: BCGlobalToken.black15.value, dark: BCGlobalToken.white20.value)
     case .stateWarning:
@@ -547,13 +570,13 @@ extension BCSemanticToken {
     case .surfaceAccentYellow:
       return (light: BCGlobalToken.yellow400.value, dark: BCGlobalToken.yellow300.value)
     case .surfaceGlass:
-      return (light: BCGlobalToken.white90.value, dark: BCGlobalToken.greyAlpha800_90.value)
+      return (light: BCGlobalToken.white90.value, dark: BCGlobalToken.grey800_90.value)
     case .surfaceGlassHigh:
-      return (light: BCGlobalToken.white90.value, dark: BCGlobalToken.greyAlpha850_90.value)
+      return (light: BCGlobalToken.white90.value, dark: BCGlobalToken.grey850_90.value)
     case .surfaceGlassHigher:
-      return (light: BCGlobalToken.greyAlpha100_90.value, dark: BCGlobalToken.greyAlpha800_90.value)
+      return (light: BCGlobalToken.grey100_90.value, dark: BCGlobalToken.grey800_90.value)
     case .surfaceGlassHighest:
-      return (light: BCGlobalToken.greyAlpha200_90.value, dark: BCGlobalToken.greyAlpha700_90.value)
+      return (light: BCGlobalToken.grey200_90.value, dark: BCGlobalToken.grey700_90.value)
     case .surfaceHigh:
       return (light: BCGlobalToken.white100.value, dark: BCGlobalToken.grey850.value)
     case .surfaceHigher:
@@ -562,8 +585,6 @@ extension BCSemanticToken {
       return (light: BCGlobalToken.white100.value, dark: BCGlobalToken.grey750.value)
     case .surfaceLow:
       return (light: BCGlobalToken.grey50.value, dark: BCGlobalToken.grey950.value)
-    case .surfaceLower:
-      return (light: BCGlobalToken.grey100.value, dark: BCGlobalToken.black100.value)
 
     // MARK: - Text
     case .textAbsoluteBlack:
@@ -610,6 +631,8 @@ extension BCSemanticToken {
       return (light: BCGlobalToken.green400.value, dark: BCGlobalToken.green300.value)
     case .textWarning:
       return (light: BCGlobalToken.orange400.value, dark: BCGlobalToken.orange300.value)
+    case .custom(let light, let dark):
+      return (light: light, dark: dark)
     }
   }
 }
